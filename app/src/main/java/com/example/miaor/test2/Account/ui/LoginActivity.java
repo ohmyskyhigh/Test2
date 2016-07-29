@@ -1,4 +1,4 @@
-package com.example.miaor.test2.Auth;
+package com.example.miaor.test2.Account.ui;
 
 
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     @BindView(R.id.email_login)
