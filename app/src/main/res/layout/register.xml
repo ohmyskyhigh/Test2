@@ -49,10 +49,10 @@
         android:layout_height="wrap_content"
         android:text="@string/email"
         android:id="@+id/emailText_login"
-        android:layout_marginBottom="43dp"
-        android:layout_alignBottom="@+id/email_register"
+        android:layout_above="@+id/emailDomain_register"
         android:layout_alignLeft="@+id/email_register"
-        android:layout_alignStart="@+id/email_register"/>
+        android:layout_alignStart="@+id/email_register"
+        android:textSize="14sp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -95,5 +95,24 @@
         android:layout_alignRight="@+id/password_register"
         android:layout_alignEnd="@+id/password_register"
         android:inputType="text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/password_register"
+        android:layout_alignLeft="@+id/password_register"
+        android:layout_alignStart="@+id/password_register"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

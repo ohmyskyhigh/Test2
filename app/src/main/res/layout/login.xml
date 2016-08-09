@@ -13,13 +13,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"
+        android:text="Prespree"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
         android:textSize="34sp"
-        />
+        android:typeface="normal"
+        android:textStyle="italic"
+        android:textColor="#26C6DA"/>
 
     <EditText
         android:layout_width="270dp"
@@ -30,8 +32,7 @@
         android:layout_marginTop="120dp"
         tools:text="123"
         android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/password_login"
-        android:layout_alignStart="@+id/password_login"/>
+        android:layout_centerHorizontal="true"/>
 
     <EditText
         android:layout_width="270dp"
