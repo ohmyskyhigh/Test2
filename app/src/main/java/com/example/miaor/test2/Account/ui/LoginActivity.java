@@ -1,18 +1,28 @@
 package com.example.miaor.test2.Account.ui;
 
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.miaor.test2.Account.tools.TaskFailureLogger;
 import com.example.miaor.test2.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     @BindView(R.id.email_login)
@@ -29,7 +39,70 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         ButterKnife.bind(this);
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getEmail());
+
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
     }
 
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mAuthStateListener != null) {
+            mAuth.removeAuthStateListener(mAuthStateListener);
+        }
+    }
+
+
+    public void setLogin (String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnFailureListener(new TaskFailureLogger(TAG, "error login"))
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                        if (!task.isSuccessful()) {
+                            Log.d(TAG, "Sign in completed");
+                        } else {
+                            Log.d(TAG, "Sign in failed");
+                        }
+                    }
+                });
+    }
+
+
+    @OnClick(R.id.Login_login)
+    void getLogin(){
+        String email = mEmail.getText().toString();
+        String password = mPassword.getText().toString();
+        setLogin(email, password);
+    }
+
+    @OnClick(R.id.Register_login)
+    void register(){
+        String email = mEmail.getText().toString();
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        intent.putExtra(getString(R.string.name), email);
+        startActivity(intent);
+    }
 }

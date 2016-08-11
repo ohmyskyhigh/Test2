@@ -1,7 +1,9 @@
-package com.example.miaor.test2.Account;
+package com.example.miaor.test2.Account.tools;
 
 
 import android.text.TextUtils;
+
+import java.util.Objects;
 
 /**
  * created by the one and only, Runkun Miao!!!!!!!!!
@@ -17,18 +19,18 @@ public class Validator {
     }
 
 
-    public boolean ValidateEmailEmpty(String email, String emailDomain){
+    public boolean ValidateEmailEmpty(String email){
         boolean valid = true;
-        if(TextUtils.isEmpty(email) && TextUtils.isEmpty(emailDomain)){
+        if(TextUtils.isEmpty(email)){
             valid = false;
         }
         return valid;
     }
 
     public boolean ValidateEmailDomain(String emailDomain){
-        boolean valid = true;
-        if (emailDomain != "soton.ac.uk"){
-            valid = false;
+        boolean valid = false;
+        if (emailDomain.equals("soton.ac.uk")){
+            valid = true;
         }
         return valid;
     }

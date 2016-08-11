@@ -22,7 +22,7 @@
         />
 
     <EditText
-        android:layout_width="130dp"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:ems="20"
@@ -42,17 +42,18 @@
         android:layout_below="@+id/textView2"
         android:layout_marginTop="2dp"
         android:layout_centerHorizontal="true"
-        tools:text="123"/>
+        android:hint="@string/password_lenth"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email"
         android:id="@+id/emailText_login"
-        android:layout_above="@+id/emailDomain_register"
+        android:textSize="14sp"
+        android:layout_marginBottom="44dp"
+        android:layout_alignBottom="@+id/email_register"
         android:layout_alignLeft="@+id/email_register"
-        android:layout_alignStart="@+id/email_register"
-        android:textSize="14sp"/>
+        android:layout_alignStart="@+id/email_register"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,29 +74,6 @@
         android:layout_centerHorizontal="true"/>
 
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="\@"
-        android:id="@+id/annotation"
-        android:layout_alignBottom="@+id/email_register"
-        android:layout_toRightOf="@+id/email_register"
-        android:layout_toEndOf="@+id/email_register"
-        android:layout_marginBottom="12dp"
-        android:textSize="18sp"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/emailDomain_register"
-        tools:text="soton.ac.uk"
-        android:layout_above="@+id/textView2"
-        android:layout_toRightOf="@+id/annotation"
-        android:layout_alignRight="@+id/password_register"
-        android:layout_alignEnd="@+id/password_register"
-        android:inputType="text"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,7 +89,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/name_register"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"/>
 
