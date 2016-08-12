@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".Account.ui.RegisterActivity">
         </activity>
+        <activity android:name=".App.ProfilePage">
+        </activity>
     </application>
 
 </manifest>

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.miaor.test2.Account.tools.TaskFailureLogger;
+import com.example.miaor.test2.Account.tools.Validator;
+import com.example.miaor.test2.App.ProfilePage;
 import com.example.miaor.test2.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,8 +25,9 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    public FirebaseAuth mAuth;
+    public FirebaseAuth.AuthStateListener mAuthStateListener;
+    private String email;
     @BindView(R.id.email_login)
     EditText mEmail;
     @BindView(R.id.password_login)
@@ -34,11 +37,13 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.Register_login)
     Button mRegister;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         ButterKnife.bind(this);
+        email = mEmail.getText().toString();
         mAuth = FirebaseAuth.getInstance();
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -48,7 +53,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getEmail());
-
+                    Intent intent = new Intent(LoginActivity.this, ProfilePage.class);
+                    startActivity(intent);
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -68,13 +74,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if(mAuthStateListener != null) {
+        if (mAuthStateListener != null) {
             mAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
 
 
-    public void setLogin (String email, String password){
+    public void setLogin(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnFailureListener(new TaskFailureLogger(TAG, "error login"))
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -92,15 +98,21 @@ public class LoginActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.Login_login)
-    void getLogin(){
-        String email = mEmail.getText().toString();
+    void getLogin() {
         String password = mPassword.getText().toString();
+        Validator validator = new Validator();
+        if (!validator.ValidateEmailEmpty(email)) {
+            mEmail.setError("email is empty");
+        }
+        if (!validator.ValidatePassword(password)) {
+            mPassword.setError("password is empty");
+        }
         setLogin(email, password);
     }
 
+
     @OnClick(R.id.Register_login)
-    void register(){
-        String email = mEmail.getText().toString();
+    void register() {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         intent.putExtra(getString(R.string.name), email);
         startActivity(intent);

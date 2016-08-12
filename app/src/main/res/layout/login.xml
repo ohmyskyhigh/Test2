@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
-        android:textSize="34sp"
+        android:textSize="@dimen/sizeTitle"
         android:typeface="normal"
         android:textStyle="italic"
         android:textColor="#26C6DA"/>

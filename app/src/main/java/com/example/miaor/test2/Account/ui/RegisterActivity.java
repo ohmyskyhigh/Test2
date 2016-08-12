@@ -28,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private String name;
     @BindView(R.id.email_register)
     EditText mEmail;
     @BindView(R.id.password_register)
@@ -55,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getEmail());
-
+                    updateUserProfile(name);
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -90,11 +91,6 @@ public class RegisterActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this, "Authentication failed",
                                     Toast.LENGTH_SHORT).show();
-
-
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "Authentication accomplished",
-                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -109,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .build();
 
 
+        assert user != null;
         user.updateProfile(profileUpdate)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -131,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
         String emailID = emailParts[0];
         String emailDomain = emailParts[1];
         String password = mPassword.getText().toString();
-        String name = mName.getText().toString();
+        name = mName.getText().toString();
 
         Validator validator = new Validator();
 
@@ -157,6 +154,5 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         setRegister(email, password);
-        updateUserProfile(name);
     }
 }
